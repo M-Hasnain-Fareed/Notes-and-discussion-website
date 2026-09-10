@@ -77,7 +77,7 @@ Tariq Al-Huda/
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/tariq-al-huda.git](https://github.com/your-username/tariq-al-huda.git)
+   git clone https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website
    cd tariq-al-huda
 
 ## 4. Local Installation & Setup Guide
