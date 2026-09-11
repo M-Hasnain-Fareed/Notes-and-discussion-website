@@ -23,7 +23,7 @@ Tariq Al-Huda/
 ├── backend/
 │   ├── __pycache__/
 │   ├── venv/                    # Python virtual environment
-│   ├── .env                     # Environment variables (DB, JWT, Cloudinary)
+│   ├── .env                     # Environment variables (DB, JWT, Supabase)
 │   ├── database.py              # MongoDB asynchronous client connection
 │   ├── main.py                  # Core FastAPI application server & endpoints
 │   ├── schemas.py               # Pydantic validation models
@@ -41,15 +41,15 @@ Tariq Al-Huda/
 ├── pdfs.html                    # Public document and study note repository
 ├── register.html                # User registration portal
 ├── viewer.html                  # Integrated document reading view
-└── requirement.txt              # Python package dependencies
+└── requirements.txt             # Python package dependencies
 ```
 ## 2. Core Functional Modules
 
 ### PDF Document & Note Management
 * **Structured Repository**: Allows users to search and filter through structured study materials and lesson records in real time.
-* **Cloud Storage & Security**: Leverages Cloudinary for secure file storage, utilizing private download routes (`/api/pdfs/{pdf_id}/file`) to stream PDF content safely.
+* **Cloud Storage & Security**: Leverages Supabase Storage (`tariq_al_huda_pdfs` bucket) to handle large PDF files (supporting files up to 60MB+), utilizing secure public and direct delivery routes.
 * **Recent Activity Tracking**: Automatically logs user interactions and presents recently viewed materials (`/api/recent-pdfs`) for quick navigation.
-* **Administrative Control**: Authorized staff can upload new documents, edit metadata, delete entries, and dynamically reorder notes (`/api/admin/pdfs/reorder`).
+* **Administrative Control**: Authorized staff can upload new documents with a real-time custom progress bar, edit metadata, delete entries, and dynamically reorder notes (`/api/admin/pdfs/reorder`).
 
 ### Knowledge Desk & Interactive Q&A
 * **Categorized Inquiries**: Students can submit targeted questions categorized as general questions, note-specific inquiries, or technical issues.
@@ -69,52 +69,42 @@ Tariq Al-Huda/
 * **Backend Framework**: FastAPI (Python asynchronous framework) delivering high-performance API routing and automatic Swagger documentation (`/docs`).
 * **Database Layer**: MongoDB (accessed via Motor and PyMongo) featuring flexible document schemas, unique indexing, and custom ID mapping.
 * **Frontend Layer**: Vanilla JavaScript (ES6+), HTML5, and modular CSS3 variables utilizing grid layouts and glassmorphism visual styles.
-* **Media Management**: Cloudinary API for secure cloud hosting, asset transformations, and media management.
+* **Storage Layer**: Supabase Storage for high-capacity file hosting, secure streaming, and robust document management.
 
 ---
 
 ## 4. Local Installation & Setup Guide
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website
-   cd tariq-al-huda
-
-## 4. Local Installation & Setup Guide
-
-1. **Create and activate a Python virtual environment:**
-   ```bash
-   python -m venv backend/venv
-   # On Windows:
-   backend\venv\Scripts\activate
-   # On macOS/Linux:
-   source backend/venv/bin/activate
-Install application dependencies:
-
-Bash
-pip install -r requirement.txt
-Configure your environment variables:
-Create a .env file inside the backend/ directory with your database and API keys:
-
+* **Clone the repository:**
+  ```bash
+  git clone https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website
+  cd tariq-al-huda
+  ```
+  Install application dependencies:
+```bash
+Bash pip install -r requirements.txt Configure your environment variables:
+```
+Create a .env file inside the backend/ directory with your database, **JWT**, and Supabase credentials:
+```bash
 Code snippet
-MONGODB_URL=your_mongodb_connection_string
+MONGODB_URI=your_mongodb_connection_string
 SECRET_KEY=your_secure_jwt_secret_key
-CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co)
+SUPABASE_KEY=your_supabase_secret_key
+SUPABASE_BUCKET=Your supabase bucket name
 Run the FastAPI development server:
+Bash uvicorn backend.main:app --reload
+Open your browser and visit http://127.0.0.1:8000/
+```
+## Production Deployment Instructions (Render Platform)
 
-Bash
-uvicorn backend.main:app --reload
-Open your browser and visit http://127.0.0.1:8000.
-
-5. Production Deployment Instructions (Render Platform)
 The application is fully compatible with free and paid tiers on Render as a Python Web Service. Configure your deployment settings as follows:
 
 Environment / Runtime: Python 3
-
-Build Command: pip install -r requirement.txt
-
-Start Command: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
-
-Environment Variables: Make sure to map all keys from your local .env file into the Environment settings tab of your Render service dashboard prior to launching.
+``` code
+Build Command: pip install -r requirements.txt
+```
+```code
+Start Command: cd backend && uvicorn main:app --host 0.0.0.0 --port $**PORT**
+```
+Environment Variables: Make sure to map all keys (MONGODB_URL, SECRET_KEY, SUPABASE_URL, SUPABASE_KEY, SUPABASE_BUCKET) from your local .env file into the Environment settings tab of your Render service dashboard prior to launching.
