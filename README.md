@@ -77,7 +77,7 @@ Tariq Al-Huda/
 
 * **Clone the repository:**
   ```bash
-  git clone [https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website](https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website)
+  git clone https://github.com/M-Hasnain-Fareed/Notes-and-discussion-website
   cd tariq-al-huda
   ```
   Install application dependencies:
