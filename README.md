@@ -86,7 +86,11 @@ Bash pip install -r requirements.txt Configure your environment variables:
 ```
 Create a .env file inside the backend/ directory with your database, **JWT**, and Supabase credentials:
 ```bash
-Code snippet MONGODB_URL=your_mongodb_connection_string SECRET_KEY=your_secure_jwt_secret_key SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co) SUPABASE_KEY=your_supabase_secret_key SUPABASE_BUCKET=tariq_al_huda_pdfs Run the FastAPI development server:
+Code snippet MONGODB_URL=your_mongodb_connection_string
+SECRET_KEY=your_secure_jwt_secret_key
+SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co)
+SUPABASE_KEY=your_supabase_secret_key
+SUPABASE_BUCKET=tariq_al_huda_pdfs Run the FastAPI development server:
 
 Bash uvicorn backend.main:app --reload Open your browser and visit [http://**127**.0.0.1:**8000**.](http://**127**.0.0.1:**8000**.)
 ```
