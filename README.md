@@ -93,7 +93,8 @@ SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supab
 SUPABASE_KEY=your_supabase_secret_key
 SUPABASE_BUCKET=Your supabase bucket name
 Run the FastAPI development server:
-Bash uvicorn backend.main:app --reload Open your browser and visit [http://**127**.0.0.1:**8000**.](http://**127**.0.0.1:**8000**.)
+Bash uvicorn backend.main:app --reload
+Open your browser and visit http://127.0.0.1:8000/
 ```
 ## Production Deployment Instructions (Render Platform)
 
