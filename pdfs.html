@@ -35,7 +35,44 @@
     <div id="footer-placeholder"></div>
 
     <script src="assets/js/component-loader.js"></script>
-    <script src="assets/js/pdfs.js?v=6"></script>
     <script src="assets/js/auth.js?v=6"></script>
+    <script>
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>'"]/g, character => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[character]));
+        }
+
+        async function loadAllPdfs() {
+            try {
+                const response = await fetch('/api/pdfs');
+                if (!response.ok) throw new Error('Failed to load notes.');
+                const pdfs = await response.json();
+                
+                const grid = document.getElementById('pdfGrid');
+                if (!pdfs.length) {
+                    grid.innerHTML = '<p class="empty-state">No notes available.</p>';
+                    return;
+                }
+
+                grid.innerHTML = pdfs.map(pdf => `
+                    <a href="viewer.html?id=${encodeURIComponent(pdf.id)}" class="pdf-card">
+                        <span class="pdf-badge">PDF · ID ${escapeHtml(pdf.id)}</span>
+                        <h2>${escapeHtml(pdf.title)}</h2>
+                        <p>${escapeHtml(pdf.description)}</p>
+                        <div class="tile-arrow">Read more <b>→</b></div>
+                    </a>
+                `).join('');
+            } catch (err) {
+                document.getElementById('pdfGrid').innerHTML = '<p class="empty-state error-state">Could not load notes.</p>';
+            }
+        }
+
+        loadAllPdfs();
+    </script>
 </body>
 </html>
