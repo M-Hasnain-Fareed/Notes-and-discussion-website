@@ -41,7 +41,7 @@ Tariq Al-Huda/
 ├── pdfs.html                    # Public document and study note repository
 ├── register.html                # User registration portal
 ├── viewer.html                  # Integrated document reading view
-└── requirement.txt              # Python package dependencies
+└── requirements.txt              # Python package dependencies
 ```
 ## 2. Core Functional Modules
 
